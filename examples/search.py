@@ -3,4 +3,5 @@
 
 from gnttb import search
 
-print(search.search('θάλασσα'))
+for v in search.search('θάλασσα'):
+    print(v)

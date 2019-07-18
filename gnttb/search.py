@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 
 from .sblgnt import morphgnt_rows
+from .verse  import Verse
 
 # Define some functions.
 
@@ -17,29 +18,30 @@ def search(lemma):
     in the New Testament.
     """
 
-    verse = ''
-    verses = []
-    last_bcv = ''
-    print_verse = False
+    verses = []             # list of verses containing lemma
+    last_bcv = ''           # bcv of the last read verse
+    keep_verse = False      # rise this flag to keep the current verse
+
+    current_verse = Verse()
     
     for book_num in range(1, 4):
         for row in morphgnt_rows(book_num):
         
             if row['bcv'] != last_bcv:
-                # New verse
-                if print_verse:
-                    verses += [verse,]
-                    #print('{} : {}'.format(bcv2str(last_bcv), verse))
-                    print_verse = False
+                # This is a new verse.
+
+                # Check if the previous verse should be kept.
+                if keep_verse:
+                    verses += [current_verse,]
+                    keep_verse = False
         
                 last_bcv = row['bcv']
-                verse = ''
+                current_verse = Verse()
         
         
             if row['lemma'] == lemma:
-                print_verse = True
+                keep_verse = True
 
-            verse += row['text']
-            verse += ' '
+            current_verse += row
 
     return verses
