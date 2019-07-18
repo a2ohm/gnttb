@@ -44,4 +44,9 @@ def search(lemma):
 
             current_verse += row
 
+        # Check if the last verse should be kept.
+        if keep_verse:
+            verses += [current_verse,]
+            keep_verse = False
+
     return verses
