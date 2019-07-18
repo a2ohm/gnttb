@@ -23,6 +23,12 @@ class Verse:
 
         return self.append(morph_word)
 
+    def __getitem__(self, n):
+        """Get the word in n position.
+        """
+
+        return self.morph_words[n]
+
     def __len__(self):
         """Len of the verse.
         """
