@@ -3,4 +3,7 @@
 
 from gnttb import get
 
-print(get.get('010609'))
+verse = get.get('010609')
+
+print(verse)
+print("({} words)".format(len(verse)))

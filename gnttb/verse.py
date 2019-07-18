@@ -23,6 +23,12 @@ class Verse:
 
         return self.append(morph_word)
 
+    def __len__(self):
+        """Len of the verse.
+        """
+
+        return len(self.morph_words)
+
     def __str__(self):
         """Display the verse.
         """
