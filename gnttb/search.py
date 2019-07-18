@@ -4,15 +4,6 @@
 from .sblgnt import morphgnt_rows
 from .verse  import Verse
 
-# Define some functions.
-
-def bcv2str(bcv):
-    """Convert a bcv into a string using the BJ convention.
-    """
-
-    return '{} {}, {}'.format(bcv_books[bcv[0:2]], int(bcv[2:4]), int(bcv[4:6]))
-
-
 def search(lemma):
     """Produce the concordance of the given lemma searching it
     in the New Testament.
