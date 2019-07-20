@@ -3,16 +3,26 @@
 
 from .sblgnt import morphgnt_rows
 from .verse  import Verse
+from .bcv import checkBcv, splitBcv
 
 def get(bcv):
-    """Return a verse given its bcv.
+    """Return a group of verses given their bcv.
+
+    bcv syntax:
+        bbccvv          --> one verse
+        bbccvv-bbccvv   --> group of verses
     """
+
+    if checkBcv(bcv):
+        bcv_start, bcv_end = splitBcv(bcv)
+    else:
+        return None
 
     verse = Verse()
     find_verse = False
-    
+
     for row in morphgnt_rows(int(bcv[0:2])):
-        if row['bcv'] == bcv:
+        if bcv_start <= row['bcv'] <= bcv_end:
             verse += row
             find_verse = True
 
