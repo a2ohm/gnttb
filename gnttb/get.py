@@ -3,7 +3,7 @@
 
 from .sblgnt import morphgnt_rows
 from .verse  import Verse
-from .bcv import checkBcv, splitBcv
+from .bcv import checkBcv, expandBcv, splitBcv
 
 def get(bcv):
     """Return a group of verses given their bcv.
@@ -18,7 +18,7 @@ def get(bcv):
     else:
         return None
 
-    verse = Verse()
+    verse = Verse(expandBcv(bcv))
     find_verse = False
 
     for row in morphgnt_rows(int(bcv[0:2])):

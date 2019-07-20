@@ -30,6 +30,15 @@ def checkBcv(bcv):
     else:
         return False
 
+def expandBcv(bcv):
+    """If the bcv is an interval, expand if.
+    """
+
+    if len(bcv) == 6:
+        return bcv
+    else:
+        return "-".join(splitBcv(bcv))
+
 def splitBcv(bcv):
     """Split a valid bcv interval.
     """

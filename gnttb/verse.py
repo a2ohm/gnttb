@@ -5,10 +5,11 @@ class Verse:
     """Custom data structure to store and manipulate a verse.
     """
 
-    def __init__(self):
+    def __init__(self, bcv):
         # List of words in sentence order.
         # Each word is a dict as returned by sblgnt.morphgnt_rows()
         self.morph_words = []
+        self.bcv = bcv
 
     def append(self, morph_word):
         """Append a word at the end of the verse.
