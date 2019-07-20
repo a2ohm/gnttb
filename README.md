@@ -8,6 +8,12 @@ Greek New Testament toolbox.
 git [documentation](https://git-scm.com/book/en/v2/Git-Tools-Submodules)).
 2. `cd gnttb && pip3 install --user .`
 
+## Update
+
+1. Update the repository using the `--recurse-submodules` parameter.
+(Something like `git fetch --recurse-submodules`.)
+2. Run `pip3 install --user --update .`
+
 ## Usage
 
 See examples.
