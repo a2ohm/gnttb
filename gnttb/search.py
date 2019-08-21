@@ -13,7 +13,7 @@ def search(lemma):
     last_bcv = ''           # bcv of the last read verse
     keep_verse = False      # rise this flag to keep the current verse
 
-    current_verse = Verse()
+    current_verse = None
     
     for book_num in range(1, 4):
         for row in morphgnt_rows(book_num):
@@ -27,7 +27,7 @@ def search(lemma):
                     keep_verse = False
         
                 last_bcv = row['bcv']
-                current_verse = Verse()
+                current_verse = Verse(row['bcv'])
         
         
             if row['lemma'] == lemma:
