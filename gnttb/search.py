@@ -15,7 +15,7 @@ def search(lemma):
 
     current_verse = None
     
-    for book_num in range(1, 4):
+    for book_num in range(1, 4+1):
         for row in morphgnt_rows(book_num):
         
             if row['bcv'] != last_bcv:
