@@ -21,7 +21,8 @@ def compare(verse1, verse2):
     m = [[ 0 for _ in range(len(verse1) + 1)] for _ in range(len(verse2) + 1)]
 
     # Set scores
-    sc_match = 1
+    sc_match = 2
+    sc_smallmatch = 1
     sc_mismatch = -1
     sc_indel = -1
 
@@ -44,7 +45,11 @@ def compare(verse1, verse2):
 
             # score from top-left
             if verse1[x-1]['lemma'] == verse2[y-1]['lemma']:
-                sc_tl = m[y-1][x-1] + sc_match
+                # Small matches receive a lower score
+                if len(verse1[x-1]['lemma']) > 3:
+                    sc_tl = m[y-1][x-1] + sc_match
+                else:
+                    sc_tl = m[y-1][x-1] + sc_smallmatch
             else:
                 sc_tl = m[y-1][x-1] + sc_mismatch
             
