@@ -16,24 +16,29 @@ def search(lemma):
     current_verse = None
     
     for book_num in range(1, 4+1):
-        for row in morphgnt_rows(book_num):
+        # Verses are read word by word.
+        # If a verse fills the search criteria, it is kept.
+        for word in morphgnt_rows(book_num):
         
-            if row['bcv'] != last_bcv:
-                # This is a new verse.
+            if word['bcv'] != last_bcv:
+                # This is the first word of a new verse.
 
                 # Check if the previous verse should be kept.
                 if keep_verse:
                     verses += [current_verse,]
                     keep_verse = False
         
-                last_bcv = row['bcv']
-                current_verse = Verse(row['bcv'])
+                # Start a new verse.
+                last_bcv = word['bcv']
+                current_verse = Verse(word['bcv'])
         
         
-            if row['lemma'] == lemma:
+            # Rise the keep_verse flag if the current word and
+            # the searched one match.
+            if word['lemma'] == lemma:
                 keep_verse = True
 
-            current_verse += row
+            current_verse += word
 
         # Check if the last verse should be kept.
         if keep_verse:
