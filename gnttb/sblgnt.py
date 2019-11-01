@@ -41,30 +41,30 @@ sblgnt_books = collections.OrderedDict([
         ('27' , BookNames('Re', 'Ap'))])
 
 
-def morphgnt_filename(book_num):
+def morphgnt_filename(book_id):
     """
-    return the MorphGNT filename of the given book number.
+    return the MorphGNT filename of the given book id.
     e.g. 1 will return "61-Mt-morphgnt.txt"
 
-    book_num is supposed to be one of sblgnt_book's keys (ie a string)
+    book_id is supposed to be one of sblgnt_book's keys (ie a string)
 
     Fork from py-sblgnt by jtauber distributed under a MIT Licence (https://github.com/morphgnt/py-sblgnt)
     """
 
     return "sblgnt/{}-{}-morphgnt.txt".format(
-        60 + int(book_num), sblgnt_books[book_num][0]
+        60 + int(book_id), sblgnt_books[book_id][0]
     )
 
 
-def morphgnt_rows(book_num):
+def morphgnt_rows(book_id):
     """
-    yield a dict for each MorphGNT/SBLGNT row in the given book number.
+    yield a dict for each MorphGNT/SBLGNT row in the given book id.
 
     Fork from py-sblgnt by jtauber distributed under a MIT Licence (https://github.com/morphgnt/py-sblgnt)
     """
     filename = os.path.join(
         os.path.dirname(__file__),
-        morphgnt_filename(book_num),
+        morphgnt_filename(book_id),
     )
 
     with open(filename) as f:

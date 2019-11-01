@@ -5,9 +5,11 @@ from .sblgnt import morphgnt_rows
 from .sblgnt import sblgnt_books
 from .verse  import Verse
 
-def search(lemma):
+def search(lemma, books = sblgnt_books.keys()):
     """Produce the concordance of the given lemma searching it
-    in the New Testament.
+    in given books (default: all books of the NT).
+
+    books: list of ids of books where the lemma is searched
     """
 
     results = []            # list book by book verses containing
@@ -17,14 +19,14 @@ def search(lemma):
 
     current_verse = None
     
-    for book_num in sblgnt_books.keys():
+    for book_id in books:
         # Verses are read word by word.
         # If a verse fills the search criteria, it is kept.
 
         verses = []             # list of verses of this book
                                 # containing the lemma
 
-        for word in morphgnt_rows(book_num):
+        for word in morphgnt_rows(book_id):
         
             if word['bcv'] != last_bcv:
                 # This is the first word of a new verse.
@@ -53,6 +55,6 @@ def search(lemma):
 
         # if verses were found, push them in results
         if len(verses) > 0:
-            results += [(book_num, verses),]
+            results += [(book_id, verses),]
 
     return results
