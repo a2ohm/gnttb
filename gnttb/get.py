@@ -21,7 +21,7 @@ def get(bcv):
     verse = Verse(expandBcv(bcv))
     find_verse = False
 
-    for row in morphgnt_rows(int(bcv[0:2])):
+    for row in morphgnt_rows(bcv[0:2]):
         if bcv_start <= row['bcv'] <= bcv_end:
             verse += row
             find_verse = True

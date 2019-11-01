@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 
 from .sblgnt import morphgnt_rows
+from .sblgnt import sblgnt_books
 from .verse  import Verse
 
 def search(lemma):
@@ -15,7 +16,7 @@ def search(lemma):
 
     current_verse = None
     
-    for book_num in range(1, 4+1):
+    for book_num in sblgnt_books.keys():
         # Verses are read word by word.
         # If a verse fills the search criteria, it is kept.
         for word in morphgnt_rows(book_num):
