@@ -10,7 +10,8 @@ def search(lemma):
     in the New Testament.
     """
 
-    verses = []             # list of verses containing lemma
+    results = []            # list book by book verses containing
+                            # the lemma
     last_bcv = ''           # bcv of the last read verse
     keep_verse = False      # rise this flag to keep the current verse
 
@@ -19,6 +20,10 @@ def search(lemma):
     for book_num in sblgnt_books.keys():
         # Verses are read word by word.
         # If a verse fills the search criteria, it is kept.
+
+        verses = []             # list of verses of this book
+                                # containing the lemma
+
         for word in morphgnt_rows(book_num):
         
             if word['bcv'] != last_bcv:
@@ -46,4 +51,8 @@ def search(lemma):
             verses += [current_verse,]
             keep_verse = False
 
-    return verses
+        # if verses were found, push them in results
+        if len(verses) > 0:
+            results += [(book_num, verses),]
+
+    return results
