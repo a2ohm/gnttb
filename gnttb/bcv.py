@@ -5,6 +5,8 @@
 Define functions relative to bcv.
 """
 
+from .sblgnt import sblgnt_books
+
 def checkBcv(bcv):
     """Check that a bcv is valid.
 
@@ -57,3 +59,29 @@ def splitBcv(bcv):
 
     else:
         None, None
+
+def bcv2str(bcv, bookNamesFamily = 'BJ'):
+    """Convert a bcv into a string using the BJ convention.
+    """
+
+    if len(bcv) == 6:
+        return '{} {}, {}'.format(
+                getattr(sblgnt_books[bcv[0:2]], bookNamesFamily),
+                int(bcv[2:4]),
+                int(bcv[4:6]))
+    else:
+        bcv_start, bcv_end = splitBcv(bcv)
+
+        if bcv_start[2:4] == bcv_end[2:4]:
+            # same chapter
+            return '{} {}, {}-{}'.format(
+                    getattr(sblgnt_books[bcv_start[0:2]], bookNamesFamily),
+                    int(bcv_start[2:4]),
+                    int(bcv_start[4:6]), int(bcv_end[4:6]))
+
+        else:
+            # different chapter
+            return '{} {}, {} − {}, {}'.format(
+                    getattr(sblgnt_books[bcv_start[0:2]], bookNamesFamily),
+                    int(bcv_start[2:4]), int(bcv_start[4:6]), 
+                    int(bcv_end[2:4]) ,int(bcv_end[4:6]))
