@@ -7,6 +7,8 @@ Define functions relative to bcv.
 
 from .sblgnt import sblgnt_books
 
+import re
+
 def checkBcv(bcv):
     """Check that a bcv is valid.
 
@@ -85,3 +87,35 @@ def bcv2str(bcv, bookNamesFamily = 'BJ'):
                     getattr(sblgnt_books[bcv_start[0:2]], bookNamesFamily),
                     int(bcv_start[2:4]), int(bcv_start[4:6]), 
                     int(bcv_end[2:4]) ,int(bcv_end[4:6]))
+
+def str2bcv(ref):
+    """Convert a string reference to a bcv.
+    """
+
+    r_ref = r"(?P<book>[A-Z]\w{1,2}) (?P<chapter>\d+)(?:\s?,\s?(?P<verse_a>\d+)(?:\s?[-:]\s?(?P<verse_b>\d+))?)?"
+    p_ref = re.compile(r_ref)
+    m_ref = p_ref.match(ref)
+
+    if m_ref:
+        bookId = None
+
+        # Get the book id
+        for i, names in sblgnt_books.items():
+            if m_ref['book'] in names:
+                bookId = i
+                break
+
+        # Return the bcv
+        if bookId:
+            if m_ref['verse_b']:
+                # bcv: BBCCVV-vv
+                return "{}{:02}{:02}-{:02}".format(bookId, int(m_ref['chapter']), int(m_ref['verse_a']), int(m_ref['verse_b']))
+            elif m_ref['verse_a']:
+                # bcv: BBCCVV
+                return "{}{:02}{:02}".format(bookId, int(m_ref['chapter']), int(m_ref['verse_a']))
+            else:
+                # bcv: BBCC
+                return "{}{:02}".format(bookId, int(m_ref['chapter']))
+
+    return None
+
